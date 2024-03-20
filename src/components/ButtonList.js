@@ -8,14 +8,15 @@ const ButtonList = () => {
     "Games",
     "Dance",
     "Live",
-    "Carry Minati",
-    "BB Ki Vines",
-    "Criket" ,
+    "Cricket" ,
     "Scoocer",
     "News",
-    "Social"
+    "Social",
+    "Mixes",
+    "News",
+    "Anime",
   ];
-  return <div className="flex">{buttonName.map((btnName) => {
+  return <div className="flex overflow ">{buttonName.map((btnName) => {
      return <Button key = {btnName} name = {btnName}/>
   })}</div>;
 };

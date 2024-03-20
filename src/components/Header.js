@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utilis/appSlice";
-import { SEARCH_SUGGESTION_API } from "../utilis/constants";
-import store from "../utilis/store";
+import { SEARCH_SUGGESTION_API, YOUTUBE_LOGO } from "../utilis/constants";
 import { cacheResults } from "../utilis/seachSlice";
+import SearchIcon from "@mui/icons-material/Search";
+import MenuIcon from "@mui/icons-material/Menu";
+import PersonIcon from "@mui/icons-material/Person";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -33,32 +35,26 @@ const Header = () => {
     const data = await fetch(SEARCH_SUGGESTION_API + searchQuery);
     const json = await data.json();
     setSuggestion(json[1]);
-   dispatch( cacheResults({
-    [searchQuery] : json[1]
-  }))
+    dispatch(
+      cacheResults({
+        [searchQuery]: json[1],
+      })
+    );
   };
+
   return (
-    <div className="grid grid-flow-col p-2  shadow-lg ">
-      <div className="flex col-span-2 m-2">
-        <img
-          className="h-8 cursor-pointer"
-          alt="menu"
-          onClick={handleMenuToggle}
-          src="https://cdn.iconscout.com/icon/free/png-256/free-hamburger-menu-462145.png?f=webp"
-        />
+    <div className="grid grid-flow-col p-2  shadow-lg">
+      <div className="flex col-span-2 m-2 ">
+        <MenuIcon onClick={handleMenuToggle} />
         <a href="/">
-          <img
-            className="h-8 mx-2"
-            alt="logo"
-            src="https://static.vecteezy.com/system/resources/previews/018/930/572/non_2x/youtube-logo-youtube-icon-transparent-free-png.png"
-          />
+          <img className="h-5 mx-8 mt-0.5" alt="yt-logo" src={YOUTUBE_LOGO} />
         </a>
       </div>
-      <div className="col-span-9 my-2">
-        <div>
+      <div className="col-span-9 my-2 ml-20">
           <input
             className="w-1/2 px-10 p-2 border border-gray-400 rounded-l-full"
             type="text"
+            placeholder="Search"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             onFocus={() => setShowSuggestion(true)}
@@ -67,24 +63,21 @@ const Header = () => {
           <button className="p-2 border border-gray-400 rounded-r-full bg-gray-100">
             Search
           </button>
-        </div>
+       { showSuggestion &&
         <div className="fixed p-2 bg-white w-[35rem] shadow-lg border border-gray-100">
           <ul>
             {showSuggestion &&
               suggestion.map((s) => (
                 <li key={s} className=" p-1 m-1 shadow-sm hover:bg-gray-100">
-                  🔍 {s}
+                  <SearchIcon /> {s}
                 </li>
               ))}
           </ul>
         </div>
+       }
       </div>
       <div className="col-span-1">
-        <img
-          className="h-8"
-          alt="user"
-          src="https://static.vecteezy.com/system/resources/previews/020/911/740/original/user-profile-icon-profile-avatar-user-icon-male-icon-face-icon-profile-icon-free-png.png"
-        />
+        <PersonIcon fontSize="large" className="h-20" />
       </div>
     </div>
   );
