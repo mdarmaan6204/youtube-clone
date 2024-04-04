@@ -15,6 +15,7 @@ const Header = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    // console.log(searchQuery);
     const timer = setTimeout(() => {
       if (searchCache[searchQuery]) setShowSuggestion(searchCache[searchQuery]);
       else {
@@ -43,38 +44,41 @@ const Header = () => {
   };
 
   return (
-    <div className="grid grid-flow-col p-2  shadow-lg">
+    <div className="grid grid-flow-col p-2 shadow-lg sticky top-0 z-50 bg-white">
       <div className="flex col-span-2 m-2 ">
-        <MenuIcon onClick={handleMenuToggle} />
+        <div className=" hover:bg-gray-200 rounded-full h-8 w-8 flex items-center justify-center">
+          <MenuIcon onClick={handleMenuToggle} />
+        </div>
         <a href="/">
           <img className="h-5 mx-8 mt-0.5" alt="yt-logo" src={YOUTUBE_LOGO} />
         </a>
       </div>
       <div className="col-span-9 my-2 ml-20">
-          <input
-            className="w-1/2 px-10 p-2 border border-gray-400 rounded-l-full"
-            type="text"
-            placeholder="Search"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onFocus={() => setShowSuggestion(true)}
-            onBlur={() => setShowSuggestion(false)}
-          />
-          <button className="p-2 border border-gray-400 rounded-r-full bg-gray-100">
-            Search
-          </button>
-       { showSuggestion &&
-        <div className="fixed p-2 bg-white w-[35rem] shadow-lg border border-gray-100">
-          <ul>
-            {showSuggestion &&
-              suggestion.map((s) => (
-                <li key={s} className=" p-1 m-1 shadow-sm hover:bg-gray-100">
-                  <SearchIcon /> {s}
-                </li>
-              ))}
-          </ul>
-        </div>
-       }
+        <input
+          className="w-1/2 px-10 p-2 border border-gray-400 rounded-l-full"
+          type="text"
+          placeholder="Search"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          onFocus={() => setShowSuggestion(true)}
+          onBlur={() => setShowSuggestion(false)}
+        />
+        <button className="p-2 border border-gray-400 rounded-r-full bg-gray-100">
+          Search
+        </button>
+        {showSuggestion
+         && (
+          <div className="fixed p-2 bg-white w-[35rem] shadow-lg border border-gray-100">
+            <ul>
+              {showSuggestion &&
+                suggestion.map((s) => (
+                  <li key={s} className=" p-1 m-1 shadow-sm hover:bg-gray-100">
+                    <SearchIcon /> {s}
+                  </li>
+                ))}
+            </ul>
+          </div>
+        )}
       </div>
       <div className="col-span-1">
         <PersonIcon fontSize="large" className="h-20" />

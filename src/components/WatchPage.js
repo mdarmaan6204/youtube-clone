@@ -4,6 +4,7 @@ import { closeMenu } from "../utilis/appSlice";
 import { useSearchParams } from "react-router-dom";
 import CommentsContainer from "./CommentsContainer";
 import LiveChat from "./LiveChat";
+import VideoSuggestion from "./VideoSuggestion";
 
 const WatchPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,10 +31,12 @@ const WatchPage = () => {
           ></iframe>
         </div>
         <div className="w-full">
-          <LiveChat />
+          {/* <LiveChat /> */}
+          <VideoSuggestion/>
         </div>
       </div>
-      <CommentsContainer />
+      {/* <CommentsContainer /> */}
+
     </div>
   );
 };
