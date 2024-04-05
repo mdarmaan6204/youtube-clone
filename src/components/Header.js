@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../utilis/appSlice";
 import { SEARCH_SUGGESTION_API, YOUTUBE_LOGO } from "../utilis/constants";
-import { cacheResults } from "../utilis/seachSlice";
+import { cacheResults } from "../utilis/searchSlice";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -49,9 +50,11 @@ const Header = () => {
         <div className=" hover:bg-gray-200 rounded-full h-8 w-8 flex items-center justify-center">
           <MenuIcon onClick={handleMenuToggle} />
         </div>
-        <a href="/">
-          <img className="h-5 mx-8 mt-0.5" alt="yt-logo" src={YOUTUBE_LOGO} />
-        </a>
+        <div>
+          <Link to="/">
+            <img className="h-5 mx-8 mt-0.5" alt="YouTube Home" src={YOUTUBE_LOGO} />
+          </Link>
+        </div>
       </div>
       <div className="col-span-9 my-2 ml-20">
         <input
@@ -66,15 +69,19 @@ const Header = () => {
         <button className="p-2 border border-gray-400 rounded-r-full bg-gray-100">
           Search
         </button>
-        {showSuggestion
-         && (
+        {showSuggestion && (
           <div className="fixed p-2 bg-white w-[35rem] shadow-lg border border-gray-100">
             <ul>
               {showSuggestion &&
                 suggestion.map((s) => (
-                  <li key={s} className=" p-1 m-1 shadow-sm hover:bg-gray-100">
-                    <SearchIcon /> {s}
-                  </li>
+                  <Link to="">
+                    <li
+                      key={s}
+                      className=" p-1 m-1 shadow-sm hover:bg-gray-100"
+                    >
+                      <SearchIcon /> {s}
+                    </li>
+                  </Link>
                 ))}
             </ul>
           </div>

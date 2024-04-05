@@ -11,7 +11,10 @@ function App() {
   const appRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Body />,
+      element: <div>
+        <Header/>
+        <Body />
+      </div>,
       children: [
         {
           path: "/",
@@ -26,10 +29,10 @@ function App() {
   ]);
   return (
     <Provider store={store}>
-      <div >
-        <Header/>
+      <div>
         <RouterProvider router={appRouter}>
-        <Body />
+          <Header />
+          <Body />
         </RouterProvider>
       </div>
     </Provider>
